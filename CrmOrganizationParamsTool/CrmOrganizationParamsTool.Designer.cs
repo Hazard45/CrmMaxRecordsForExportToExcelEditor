@@ -54,7 +54,6 @@
             this.TextBoxOrganizationServiceUrl.Name = "TextBoxOrganizationServiceUrl";
             this.TextBoxOrganizationServiceUrl.Size = new System.Drawing.Size(260, 20);
             this.TextBoxOrganizationServiceUrl.TabIndex = 0;
-            this.TextBoxOrganizationServiceUrl.Text = "http://crm2016_demo:5555/test18/XRMServices/2011/Organization.svc";
             this.TextBoxOrganizationServiceUrl.TextChanged += new System.EventHandler(this.TextBoxOrganizationServiceUrl_TextChanged);
             // 
             // LabelOrganizationServiceUrl
