@@ -58,7 +58,7 @@ namespace CrmOrganizationParamsTool
                 }
                 else
                 {
-                    throw new Exception();
+                    throw new Exception("Wrong value type format for EntityReference." + Environment.NewLine + "Value format must be: entity_name entity_guid" + Environment.NewLine);
                 }
             }
             else if (Value is OptionSetValue)
