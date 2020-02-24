@@ -44,8 +44,10 @@
             this.TextBoxParameterValue = new System.Windows.Forms.TextBox();
             this.ButtonSetValue = new System.Windows.Forms.Button();
             this.ComboBoxParameter = new System.Windows.Forms.ComboBox();
+            this.PictureBoxLoading = new System.Windows.Forms.PictureBox();
             this.GroupBoxConnection.SuspendLayout();
             this.GroupBoxOrganizationParameters.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // TextBoxOrganizationServiceUrl
@@ -129,6 +131,7 @@
             // 
             // GroupBoxOrganizationParameters
             // 
+            this.GroupBoxOrganizationParameters.Controls.Add(this.PictureBoxLoading);
             this.GroupBoxOrganizationParameters.Controls.Add(this.LabelParameterType);
             this.GroupBoxOrganizationParameters.Controls.Add(this.TextBoxParameterType);
             this.GroupBoxOrganizationParameters.Controls.Add(this.LabelParameterValue);
@@ -209,6 +212,18 @@
             this.ComboBoxParameter.TabIndex = 0;
             this.ComboBoxParameter.SelectedIndexChanged += new System.EventHandler(this.ComboBoxParameterName_SelectedIndexChanged);
             // 
+            // PictureBoxLoading
+            // 
+            this.PictureBoxLoading.Image = global::CrmOrganizationParamsTool.Properties.Resources.loading;
+            this.PictureBoxLoading.InitialImage = null;
+            this.PictureBoxLoading.Location = new System.Drawing.Point(37, 35);
+            this.PictureBoxLoading.Name = "PictureBoxLoading";
+            this.PictureBoxLoading.Size = new System.Drawing.Size(50, 50);
+            this.PictureBoxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PictureBoxLoading.TabIndex = 9;
+            this.PictureBoxLoading.TabStop = false;
+            this.PictureBoxLoading.Visible = false;
+            // 
             // CrmOrganizationParamsTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -225,6 +240,7 @@
             this.GroupBoxConnection.PerformLayout();
             this.GroupBoxOrganizationParameters.ResumeLayout(false);
             this.GroupBoxOrganizationParameters.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxLoading)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -247,6 +263,7 @@
         private System.Windows.Forms.TextBox TextBoxUserName;
         private System.Windows.Forms.Label LabelParameterType;
         private System.Windows.Forms.TextBox TextBoxParameterType;
+        private System.Windows.Forms.PictureBox PictureBoxLoading;
     }
 }
 

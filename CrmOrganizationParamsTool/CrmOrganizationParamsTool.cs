@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.ServiceModel.Description;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Client;
@@ -47,6 +48,7 @@ namespace CrmOrganizationParamsTool
                 TextBoxParameterType.Text = string.Empty;
                 TextBoxParameterValue.Text = string.Empty;
                 GroupBoxOrganizationParameters.Enabled = false;
+                PictureBoxLoading.Visible = false;
                 MessageBox.Show(ex.ToString(), "Error");
             }
         }
@@ -84,18 +86,7 @@ namespace CrmOrganizationParamsTool
         {
             if (ComboBoxParameter.SelectedIndex >= 0)
             {
-                try
-                {
-                    var param = (OrganizationParam)ComboBoxParameter.SelectedItem;
-                    param.SetValue(TextBoxParameterValue.Text.Trim());
-                    organizationEntity[param.Name] = param.Value;
-                    service.Update(organizationEntity);
-                    GetData(ComboBoxParameter.SelectedIndex);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Error");
-                }
+                SetValue();
             }
         }
 
@@ -123,6 +114,47 @@ namespace CrmOrganizationParamsTool
             {
                 throw new Exception("There is no such organization");
             }
+        }
+
+        private async void SetValue()
+        {
+            try
+            {
+                LoadingStarting();
+                var param = (OrganizationParam)ComboBoxParameter.SelectedItem;
+                param.SetValue(TextBoxParameterValue.Text.Trim());
+                organizationEntity[param.Name] = param.Value;
+                await Task.Factory.StartNew(() =>
+                {
+                    service.Update(organizationEntity);
+                    GetData(ComboBoxParameter.SelectedIndex);
+                });
+                LoadingFinished();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+            }
+        }
+
+        private void LoadingStarting()
+        {
+            PictureBoxLoading.Visible = true;
+            ComboBoxParameter.Enabled = false;
+            TextBoxParameterType.Enabled = false;
+            TextBoxParameterValue.Enabled = false;
+            ButtonSetValue.Enabled = false;
+            GroupBoxConnection.Enabled = false;
+        }
+
+        private void LoadingFinished()
+        {
+            PictureBoxLoading.Visible = false;
+            ComboBoxParameter.Enabled = true;
+            TextBoxParameterType.Enabled = true;
+            TextBoxParameterValue.Enabled = true;
+            ButtonSetValue.Enabled = true;
+            GroupBoxConnection.Enabled = true;
         }
     }
 }
