@@ -118,9 +118,9 @@ namespace CrmOrganizationParamsTool
 
         private async void SetValue()
         {
+            LoadingStarting();
             try
             {
-                LoadingStarting();
                 var param = (OrganizationParam)ComboBoxParameter.SelectedItem;
                 param.SetValue(TextBoxParameterValue.Text.Trim());
                 organizationEntity[param.Name] = param.Value;
@@ -129,11 +129,14 @@ namespace CrmOrganizationParamsTool
                     service.Update(organizationEntity);
                     GetData(ComboBoxParameter.SelectedIndex);
                 });
-                LoadingFinished();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Error");
+            }
+            finally
+            {
+                LoadingFinished();
             }
         }
 
