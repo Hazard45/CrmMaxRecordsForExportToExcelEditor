@@ -22,35 +22,7 @@ namespace CrmOrganizationParamsTool
 
         private void ButtonConnect_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var uri = new Uri(TextBoxOrganizationServiceUrl.Text);
-                var credentials = new ClientCredentials();
-                if (!string.IsNullOrWhiteSpace(TextBoxUserName.Text))
-                {
-                    credentials.UserName.UserName = TextBoxUserName.Text;
-                    credentials.UserName.Password = TextBoxPassword.Text;
-                }
-                else
-                {
-                    credentials.Windows.ClientCredential = CredentialCache.DefaultNetworkCredentials;
-                }
-
-                service = new OrganizationServiceProxy(uri, null, credentials, null);
-
-                GroupBoxOrganizationParameters.Enabled = true;
-                GetData(0);
-                ComboBoxParameter.DroppedDown = true;
-            }
-            catch (Exception ex)
-            {
-                ComboBoxParameter.Items.Clear();
-                TextBoxParameterType.Text = string.Empty;
-                TextBoxParameterValue.Text = string.Empty;
-                GroupBoxOrganizationParameters.Enabled = false;
-                PictureBoxLoading.Visible = false;
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            Connect();
         }
 
         private void TextBoxOrganizationServiceUrl_TextChanged(object sender, EventArgs e)
@@ -121,9 +93,54 @@ namespace CrmOrganizationParamsTool
             }
         }
 
+        private async void Connect()
+        {
+            GroupBoxOrganizationParameters.Enabled = false;
+            PictureBoxConnectionLoading.Visible = true;
+            Loading(true);
+            try
+            {
+                var uri = new Uri(TextBoxOrganizationServiceUrl.Text);
+                var credentials = new ClientCredentials();
+                if (!string.IsNullOrWhiteSpace(TextBoxUserName.Text))
+                {
+                    credentials.UserName.UserName = TextBoxUserName.Text;
+                    credentials.UserName.Password = TextBoxPassword.Text;
+                }
+                else
+                {
+                    credentials.Windows.ClientCredential = CredentialCache.DefaultNetworkCredentials;
+                }
+
+                await Task.Factory.StartNew(() =>
+                {
+                    service = new OrganizationServiceProxy(uri, null, credentials, null);
+
+                    GetData(0);
+                    GroupBoxOrganizationParameters.Enabled = true;
+                    ComboBoxParameter.DroppedDown = true;
+                });
+            }
+            catch (Exception ex)
+            {
+                ComboBoxParameter.Items.Clear();
+                TextBoxParameterType.Text = string.Empty;
+                TextBoxParameterValue.Text = string.Empty;
+                GroupBoxOrganizationParameters.Enabled = false;
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                Loading(false);
+                PictureBoxConnectionLoading.Visible = false;
+                PictureBoxParameterLoading.Visible = false;
+            }
+        }
+
         private async void SetValue()
         {
-            LoadingStarting();
+            PictureBoxParameterLoading.Visible = true;
+            Loading(true);
             try
             {
                 var param = (OrganizationParam)ComboBoxParameter.SelectedItem;
@@ -141,28 +158,22 @@ namespace CrmOrganizationParamsTool
             }
             finally
             {
-                LoadingFinished();
+                Loading(false);
+                PictureBoxParameterLoading.Visible = false;
             }
         }
 
-        private void LoadingStarting()
+        private void Loading(bool activate)
         {
-            PictureBoxLoading.Visible = true;
-            ComboBoxParameter.Enabled = false;
-            TextBoxParameterType.Enabled = false;
-            TextBoxParameterValue.Enabled = false;
-            ButtonSetValue.Enabled = false;
-            GroupBoxConnection.Enabled = false;
-        }
+            ComboBoxParameter.Enabled = !activate;
+            TextBoxParameterType.Enabled = !activate;
+            TextBoxParameterValue.Enabled = !activate;
+            ButtonSetValue.Enabled = !activate;
 
-        private void LoadingFinished()
-        {
-            PictureBoxLoading.Visible = false;
-            ComboBoxParameter.Enabled = true;
-            TextBoxParameterType.Enabled = true;
-            TextBoxParameterValue.Enabled = true;
-            ButtonSetValue.Enabled = true;
-            GroupBoxConnection.Enabled = true;
+            TextBoxOrganizationServiceUrl.Enabled = !activate;
+            TextBoxUserName.Enabled = !activate;
+            TextBoxPassword.Enabled = !activate;
+            ButtonConnect.Enabled = !activate;
         }
     }
 }

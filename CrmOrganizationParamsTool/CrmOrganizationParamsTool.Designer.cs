@@ -37,6 +37,7 @@
             this.TextBoxUserName = new System.Windows.Forms.TextBox();
             this.ButtonConnect = new System.Windows.Forms.Button();
             this.GroupBoxOrganizationParameters = new System.Windows.Forms.GroupBox();
+            this.PictureBoxParameterLoading = new System.Windows.Forms.PictureBox();
             this.LabelParameterType = new System.Windows.Forms.Label();
             this.TextBoxParameterType = new System.Windows.Forms.TextBox();
             this.LabelParameterValue = new System.Windows.Forms.Label();
@@ -44,10 +45,11 @@
             this.TextBoxParameterValue = new System.Windows.Forms.TextBox();
             this.ButtonSetValue = new System.Windows.Forms.Button();
             this.ComboBoxParameter = new System.Windows.Forms.ComboBox();
-            this.PictureBoxLoading = new System.Windows.Forms.PictureBox();
+            this.PictureBoxConnectionLoading = new System.Windows.Forms.PictureBox();
             this.GroupBoxConnection.SuspendLayout();
             this.GroupBoxOrganizationParameters.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxLoading)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxParameterLoading)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxConnectionLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // TextBoxOrganizationServiceUrl
@@ -69,6 +71,7 @@
             // 
             // GroupBoxConnection
             // 
+            this.GroupBoxConnection.Controls.Add(this.PictureBoxConnectionLoading);
             this.GroupBoxConnection.Controls.Add(this.LabelPassword);
             this.GroupBoxConnection.Controls.Add(this.TextBoxPassword);
             this.GroupBoxConnection.Controls.Add(this.LabelUserName);
@@ -131,7 +134,7 @@
             // 
             // GroupBoxOrganizationParameters
             // 
-            this.GroupBoxOrganizationParameters.Controls.Add(this.PictureBoxLoading);
+            this.GroupBoxOrganizationParameters.Controls.Add(this.PictureBoxParameterLoading);
             this.GroupBoxOrganizationParameters.Controls.Add(this.LabelParameterType);
             this.GroupBoxOrganizationParameters.Controls.Add(this.TextBoxParameterType);
             this.GroupBoxOrganizationParameters.Controls.Add(this.LabelParameterValue);
@@ -146,6 +149,18 @@
             this.GroupBoxOrganizationParameters.TabIndex = 3;
             this.GroupBoxOrganizationParameters.TabStop = false;
             this.GroupBoxOrganizationParameters.Text = "Organization Parameters";
+            // 
+            // PictureBoxParameterLoading
+            // 
+            this.PictureBoxParameterLoading.Image = global::CrmOrganizationParamsTool.Properties.Resources.loading;
+            this.PictureBoxParameterLoading.InitialImage = null;
+            this.PictureBoxParameterLoading.Location = new System.Drawing.Point(20, 49);
+            this.PictureBoxParameterLoading.Name = "PictureBoxParameterLoading";
+            this.PictureBoxParameterLoading.Size = new System.Drawing.Size(50, 50);
+            this.PictureBoxParameterLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PictureBoxParameterLoading.TabIndex = 9;
+            this.PictureBoxParameterLoading.TabStop = false;
+            this.PictureBoxParameterLoading.Visible = false;
             // 
             // LabelParameterType
             // 
@@ -212,17 +227,17 @@
             this.ComboBoxParameter.TabIndex = 0;
             this.ComboBoxParameter.SelectedIndexChanged += new System.EventHandler(this.ComboBoxParameterName_SelectedIndexChanged);
             // 
-            // PictureBoxLoading
+            // PictureBoxConnectionLoading
             // 
-            this.PictureBoxLoading.Image = global::CrmOrganizationParamsTool.Properties.Resources.loading;
-            this.PictureBoxLoading.InitialImage = null;
-            this.PictureBoxLoading.Location = new System.Drawing.Point(37, 35);
-            this.PictureBoxLoading.Name = "PictureBoxLoading";
-            this.PictureBoxLoading.Size = new System.Drawing.Size(50, 50);
-            this.PictureBoxLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.PictureBoxLoading.TabIndex = 9;
-            this.PictureBoxLoading.TabStop = false;
-            this.PictureBoxLoading.Visible = false;
+            this.PictureBoxConnectionLoading.Image = global::CrmOrganizationParamsTool.Properties.Resources.loading;
+            this.PictureBoxConnectionLoading.InitialImage = null;
+            this.PictureBoxConnectionLoading.Location = new System.Drawing.Point(20, 45);
+            this.PictureBoxConnectionLoading.Name = "PictureBoxConnectionLoading";
+            this.PictureBoxConnectionLoading.Size = new System.Drawing.Size(50, 50);
+            this.PictureBoxConnectionLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.PictureBoxConnectionLoading.TabIndex = 10;
+            this.PictureBoxConnectionLoading.TabStop = false;
+            this.PictureBoxConnectionLoading.Visible = false;
             // 
             // CrmOrganizationParamsTool
             // 
@@ -240,7 +255,8 @@
             this.GroupBoxConnection.PerformLayout();
             this.GroupBoxOrganizationParameters.ResumeLayout(false);
             this.GroupBoxOrganizationParameters.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxLoading)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxParameterLoading)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxConnectionLoading)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -263,7 +279,8 @@
         private System.Windows.Forms.TextBox TextBoxUserName;
         private System.Windows.Forms.Label LabelParameterType;
         private System.Windows.Forms.TextBox TextBoxParameterType;
-        private System.Windows.Forms.PictureBox PictureBoxLoading;
+        private System.Windows.Forms.PictureBox PictureBoxParameterLoading;
+        private System.Windows.Forms.PictureBox PictureBoxConnectionLoading;
     }
 }
 
