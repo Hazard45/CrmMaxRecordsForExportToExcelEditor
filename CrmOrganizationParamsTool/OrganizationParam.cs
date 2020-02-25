@@ -53,12 +53,12 @@ namespace CrmOrganizationParamsTool
                     }
                     else
                     {
-                        throw new Exception("Wrong value type format for EntityReference." + Environment.NewLine + "Value format must be: entity_name entity_guid" + Environment.NewLine);
+                        throw new Exception("Wrong value type format for " + GetValueTypeString() + Environment.NewLine + "Value format must be: entity_name entity_guid" + Environment.NewLine);
                     }
                 }
                 else
                 {
-                    throw new Exception("Wrong value type format for EntityReference." + Environment.NewLine + "Value format must be: entity_name entity_guid" + Environment.NewLine);
+                    throw new Exception("Wrong value type format for " + GetValueTypeString() + Environment.NewLine + "Value format must be: entity_name entity_guid" + Environment.NewLine);
                 }
             }
             else if (Value is OptionSetValue)
@@ -70,7 +70,7 @@ namespace CrmOrganizationParamsTool
                 }
                 else
                 {
-                    throw new Exception("Wrong value type format for OptionSetValue." + Environment.NewLine + "Value must be an integer number" + Environment.NewLine);
+                    throw new Exception("Wrong value type format for " + GetValueTypeString() + Environment.NewLine + "Value must be an integer number" + Environment.NewLine);
                 }
             }
             else if (Value is int)
@@ -82,7 +82,7 @@ namespace CrmOrganizationParamsTool
                 }
                 else
                 {
-                    throw new Exception("Wrong value type format for Int." + Environment.NewLine + "Value must be an integer number" + Environment.NewLine);
+                    throw new Exception("Wrong value type format for " + GetValueTypeString() + Environment.NewLine + "Value must be an integer number" + Environment.NewLine);
                 }
             }
             else if (Value is bool)
@@ -94,7 +94,7 @@ namespace CrmOrganizationParamsTool
                 }
                 else
                 {
-                    throw new Exception("Wrong value type format for Bool." + Environment.NewLine + "Value must be True or False" + Environment.NewLine);
+                    throw new Exception("Wrong value type format for " + GetValueTypeString() + Environment.NewLine + "Value must be True or False" + Environment.NewLine);
                 }
             }
             else

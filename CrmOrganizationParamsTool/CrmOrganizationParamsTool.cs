@@ -49,7 +49,7 @@ namespace CrmOrganizationParamsTool
                 TextBoxParameterValue.Text = string.Empty;
                 GroupBoxOrganizationParameters.Enabled = false;
                 PictureBoxLoading.Visible = false;
-                MessageBox.Show(ex.ToString(), "Error");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -77,7 +77,7 @@ namespace CrmOrganizationParamsTool
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString(), "Error");
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -86,7 +86,12 @@ namespace CrmOrganizationParamsTool
         {
             if (ComboBoxParameter.SelectedIndex >= 0)
             {
-                SetValue();
+                var dialogResult = MessageBox.Show("Any changes of organization parameters are unmanaged and can harm the Dynamics CRM Organization functionality." + Environment.NewLine + Environment.NewLine +
+                    "Are you sure you want to change this organization parameter value?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    SetValue();
+                }
             }
         }
 
@@ -132,7 +137,7 @@ namespace CrmOrganizationParamsTool
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error");
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
